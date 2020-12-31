@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+</head>
+
+<body>
+    <input type="button" value="On" onclick="on()">
+    <input type="button" value="Off" onclick="off()">
+    <script>
+        const WS_URL = 'ws:///192.82.251.138:8888';
+        const ws = new WebSocket(WS_URL);
+
+        let urlObject;
+        ws.onopen = () => console.log(`Connected to ${WS_URL}`);
+        ws.onmessage = message => {
+            console.log(message.data);
+
+        }
+        const on = function(){
+            ws.send('hey hi ho')
+        }
+        const off = function(){
+            ws.send('ha ha ha')
+        }
+    </script>
+</body>
+
+</html>
