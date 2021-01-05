@@ -1,8 +1,10 @@
 #include <WiFi.h>
 #include <ArduinoWebsockets.h>
 
-const char* ssid = "Fios-WVBRA_EXT";
-const char* password = "";
+//const char* ssid = "Fios-WVBRA_EXT";
+//const char* password = "pea4879carve43tony";
+const char* ssid = "Pixel_6944";
+const char* password = "jphotspot";
 const char* websocket_server_host = "192.82.251.138";
 const uint16_t websocket_server_port = 8888;
 const int relay = 26;
@@ -14,10 +16,12 @@ void onMessageCallback(WebsocketsMessage message) {
     Serial.println(message.data());
     if(message.data() == "hey hi ho"){
       digitalWrite(relay, LOW);
-    } else{
+    }else if(message.data() == "just checking"){
+      Serial.println(message.data());
+    } 
+    else{
       digitalWrite(relay, HIGH);
     }
-
 }
 
 void connect(){
@@ -28,8 +32,7 @@ void connect(){
   }
   
   Serial.println("Websocket Connected!");
-  
-  Serial.begin(115200);
+
 }
 
 void onEventsCallback(WebsocketsEvent event, String data) {
@@ -37,6 +40,8 @@ void onEventsCallback(WebsocketsEvent event, String data) {
         Serial.println("ConnectionOpened");
     } else if(event == WebsocketsEvent::ConnectionClosed) {
         Serial.println("ConnectionClosed");
+        digitalWrite(relay, LOW);
+        delay(1000);
         connect();
     } else if(event == WebsocketsEvent::GotPong) {
         Serial.println("GotPong");
@@ -54,9 +59,10 @@ void setup() {
   Serial.println("");
   Serial.println("WiFi connected");
 
+  Serial.begin(115200);
+
   client.onMessage(onMessageCallback);
   client.onEvent(onEventsCallback);
-
   connect();
 
   pinMode(relay, OUTPUT);

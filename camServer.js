@@ -22,7 +22,7 @@ wsServer.on('connection', (ws, req) => {
         })
     });
     setInterval(function(){
-        ws,send('just checking');
+        ws.send('just checking');
     },100000)
 });
 app.get('/client', (req, res)=> res.sendFile(path.resolve(__dirname, './client.html')));
