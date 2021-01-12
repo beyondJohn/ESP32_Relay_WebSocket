@@ -63,11 +63,17 @@ void setup() {
 
   client.onMessage(onMessageCallback);
   client.onEvent(onEventsCallback);
-  connect();
 
   pinMode(relay, OUTPUT);
+  
+  connect();
 }
 
 void loop() {
    client.poll();
+   if(client.available() != 1){
+    Serial.print(client.available()); 
+    connect();
+   }
+   
 }
