@@ -8,8 +8,13 @@
 </head>
 
 <body>
-    <input type="button" value="On" onclick="on()">
-    <input type="button" value="Off" onclick="off()">
+    <input type="button" value="Retract" onclick="on()">
+    <input type="button" value="Inject" onclick="off()">
+    <br><br>
+    <input type="button" value="Enable" onclick="enable()">
+    <input type="button" value="Disable" onclick="disable()">
+    <br><br>
+    <input type="button" value="Dispense 10ml" onclick="dispense10Mil()">
     <script>
         const WS_URL = 'ws:///192.82.251.138:8888';
         const ws = new WebSocket(WS_URL);
@@ -26,7 +31,15 @@
         const off = function(){
             ws.send('ha ha ha')
         }
-        
+        const enable = function(){
+            ws.send('on')
+        }
+        const disable = function(){
+            ws.send('off')
+        }
+        const dispense10Mil = function(){
+            ws.send("dispense10");
+        }
     </script>
 </body>
 

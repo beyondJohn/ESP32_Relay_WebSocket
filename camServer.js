@@ -22,9 +22,13 @@ wsServer.on('connection', (ws, req) => {
         })
     });
     setInterval(function(){
-        ws.send('just checking');
+        ws,send('just checking');
     },100000)
 });
 app.get('/client', (req, res)=> res.sendFile(path.resolve(__dirname, './client.html')));
-app.get('/data', (req, res)=> res.sendFile(path.resolve(__dirname, './data.json')));
+// app.get('/data', (req, res)=> res.sendFile(path.resolve(__dirname, './data.json')));
+
+var now = new Date();
+app.get('/data', (req, res)=> res.send('{"start":"4:00:00","end":"20:00:00","current":' + now.getHours() + ', "salutation":"howdy" }'));
+
 app.listen(HTTP_PORT, ()=> console.log(`HTTP server listening at ${HTTP_PORT}`));
