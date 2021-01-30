@@ -28,7 +28,7 @@ wsServer.on('connection', (ws, req) => {
 app.get('/client', (req, res)=> res.sendFile(path.resolve(__dirname, './client.html')));
 // app.get('/data', (req, res)=> res.sendFile(path.resolve(__dirname, './data.json')));
 
-var now = new Date();
-app.get('/data', (req, res)=> res.send('{"start":"4:00:00","end":"20:00:00","current":' + now.getHours() + ', "salutation":"howdy" }'));
+var now = new Date(); // 21 = 9PM, 0-23 range
+app.get('/data', (req, res)=> res.send('{"start":"4:00:00","end":"21:00:00","current":' + (now.getHours()+2) + ', "salutation":"howdy" }'));
 
 app.listen(HTTP_PORT, ()=> console.log(`HTTP server listening at ${HTTP_PORT}`));

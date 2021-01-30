@@ -139,9 +139,7 @@ void loop() {
     Serial.print(client.available()); 
     connect();
    }
-   ////
-   ////
-     //Send an HTTP POST request every 10 minutes
+  //Send an HTTP POST request every 10 minutes
   if ((millis() - lastTime) > timerDelay) {
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
@@ -193,7 +191,4 @@ void loop() {
     }
     lastTime = millis();
   }
-   ////
-   ////
-   
 }
