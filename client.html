@@ -15,6 +15,7 @@
     <input type="button" value="Disable" onclick="disable()">
     <br><br>
     <input type="button" value="Dispense 10ml" onclick="dispense10Mil()">
+    <div id="divTemp" style="padding: 15px 0;"></div>
     <script>
         const WS_URL = 'ws:///192.82.251.138:8888';
         const ws = new WebSocket(WS_URL);
@@ -22,22 +23,35 @@
         let urlObject;
         ws.onopen = () => console.log(`Connected to ${WS_URL}`);
         ws.onmessage = message => {
-            console.log(message.data);
+            let myDataJson;
+            try {
+                myDataJson = JSON.parse(message.data);
+                if (myDataJson["T"] !== undefined) {
+                    let tempDiv = document.getElementById("divTemp");
+                    const myTime = new Date();
+                    tempDiv.innerHTML = "Temperature: " + myDataJson["T"] + "&deg; <br>" 
+                    + "Humidity: " + myDataJson["H"] + "&#37;  <br> Timestamp: " +
+                    + (myTime.getMonth() + 1) + "/" + myTime.getDay() + "/" + myTime.getFullYear() + " " + myTime.toTimeString();
+                }
+            }
+            catch {
+                // this try/catch is not needed past 2/1/2021, all message.data will parse moving forward   
+            }
 
         }
-        const on = function(){
+        const on = function () {
             ws.send('hey hi ho')
         }
-        const off = function(){
+        const off = function () {
             ws.send('ha ha ha')
         }
-        const enable = function(){
+        const enable = function () {
             ws.send('on')
         }
-        const disable = function(){
+        const disable = function () {
             ws.send('off')
         }
-        const dispense10Mil = function(){
+        const dispense10Mil = function () {
             ws.send("dispense10");
         }
     </script>
