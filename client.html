@@ -34,7 +34,7 @@
                     const temperature = (myDataJson["T"] - 3) // adjusted by -3 after accuracy testing
                     const humidity = (myDataJson["H"] - 5) // adjusted by -5 after accuracy testing
 
-                    TempDiv.innerHTML =`"Temperature: ${temperature}&deg; <br>Humidity: ${humidity}&#37;<br>Timestamp: ${timestamp}`
+                    tempDiv.innerHTML =`"Temperature: ${temperature}&deg; <br>Humidity: ${humidity}&#37;<br>Timestamp: ${timestamp}`
                 }
             }
         };
