@@ -47,23 +47,6 @@
         ws.onopen = () => console.log(`Connected to ${WS_URL}`);
         ws.onmessage = message => {
             console.log(message.data)
-            let myDataJson;
-            try {
-                // myDataJson = JSON.parse(message.data);
-                // if (myDataJson["T"] !== undefined) {
-                //     let tempDiv = document.getElementById("divTemp");
-                //     const myTime = new Date();
-                //     const temperature = (myDataJson["T"] - 3) // adjusted by -3 after accuracy testing
-                //     const humidity = (myDataJson["H"] - 5) // adjusted by -5 after accuracy testing
-                //     tempDiv.innerHTML = "Temperature: " + temperature + "&deg; <br>"
-                //         + "Humidity: " + humidity + "&#37;  <br> Timestamp: "
-                //         + (myTime.getMonth() + 1) + "/" + myTime.getDay() + "/" + myTime.getFullYear() + " " + myTime.toTimeString();
-                // }
-            }
-            catch {
-                // this try/catch is not needed past 2/1/2021, all message.data will parse moving forward   
-            }
-
         }
         const on = function () {
             ws.send('hey hi ho')
