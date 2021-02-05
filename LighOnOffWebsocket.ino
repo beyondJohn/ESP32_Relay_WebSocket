@@ -28,6 +28,8 @@ int isActive = 0;
 unsigned long lastTime = 0;
 // Timer set to 10 minutes (600000)
 //unsigned long timerDelay = 600000;
+// Timer set to 1 Hour (3600000)
+//unsigned long timerDelay = 3600000;
 // Set timer to 5 seconds (5000)
 unsigned long timerDelay = 5000;
 
@@ -171,6 +173,8 @@ void loop() {
           int START = root["start"];
           int END = root["end"];
           int CURRENT = root["current"];
+          int FREQUENCY = root["frequency"];
+          timerDelay = (1000 * FREQUENCY);
           Serial.println(START);
           if(CURRENT >= START && END >= CURRENT){
             digitalWrite(relay, HIGH);

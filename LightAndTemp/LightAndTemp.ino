@@ -181,13 +181,19 @@ void loop() {
           int START = root["start"];
           int END = root["end"];
           int CURRENT = root["current"];
-//          Serial.println(START);
+          int FREQUENCY = root["frequency"];
+          Serial.println("timerDelay");
+          Serial.println(timerDelay);
+          timerDelay = (1000 * FREQUENCY);
+          Serial.println("timerDelay");
+          Serial.println(timerDelay);
           if(CURRENT >= START && END >= CURRENT){
             digitalWrite(relay, HIGH);
           }
           else{//shut light off
             digitalWrite(relay, LOW);
           }
+          getTemperature();
       }
       else {
         Serial.print("Error code: ");
@@ -201,6 +207,5 @@ void loop() {
     }
     lastTime = millis();
   }
-  delay(5000);
-  getTemperature();
+//  delay(timerDelay);
 }
