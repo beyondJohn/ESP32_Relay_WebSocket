@@ -8,22 +8,22 @@
 </head>
 
 <body>
-    <input type="button" value="Retract" onclick="on()">
-    <input type="button" value="Inject" onclick="off()">
+    <input type="button" value="On" onclick="on()">
+    <input type="button" value="Off" onclick="off()">
     <br><br>
-    <input type="button" value="Enable" onclick="enable()">
+    <!-- <input type="button" value="Enable" onclick="enable()">
     <input type="button" value="Disable" onclick="disable()">
     <br><br>
-    <input type="button" value="Dispense 10ml" onclick="dispense10Mil()">
+    <input type="button" value="Dispense 10ml" onclick="dispense10Mil()"> -->
     <div id="divTemp" style="padding: 15px 0;"></div>
     <script>
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
-                // console.log(xhttp.responseText);
+                console.log('check: ',xhttp.responseText);
                 const dataJson = JSON.parse(xhttp.responseText);
-                const lastReport = dataJson.data[dataJson.data.length -1]
+                const lastReport = dataJson;
                 console.log("lastReport: ",lastReport);
                 myDataJson = lastReport;
                 if (myDataJson["T"] !== undefined) {
@@ -33,8 +33,10 @@
                     
                     const temperature = (myDataJson["T"] - 3) // adjusted by -3 after accuracy testing
                     const humidity = (myDataJson["H"] - 5) // adjusted by -5 after accuracy testing
-
-                    tempDiv.innerHTML =`"Temperature: ${temperature}&deg; <br>Humidity: ${humidity}&#37;<br>Timestamp: ${timestamp}`
+                    
+                    tempDiv.innerHTML = "Temperature: " + temperature + "&deg; <br>"
+                        + "Humidity: " + humidity + "&#37;  <br> Timestamp: "
+                        + timestamp;
                 }
             }
         };
@@ -47,12 +49,35 @@
         ws.onopen = () => console.log(`Connected to ${WS_URL}`);
         ws.onmessage = message => {
             console.log(message.data)
+            // let myDataJson;
+            // try {
+            //     // myDataJson = JSON.parse(message.data);
+            //     // if (myDataJson["T"] !== undefined) {
+            //     //     let tempDiv = document.getElementById("divTemp");
+            //     //     const myTime = new Date();
+            //     //     const temperature = (myDataJson["T"] - 3) // adjusted by -3 after accuracy testing
+            //     //     const humidity = (myDataJson["H"] - 5) // adjusted by -5 after accuracy testing
+            //     //     tempDiv.innerHTML = "Temperature: " + temperature + "&deg; <br>"
+            //     //         + "Humidity: " + humidity + "&#37;  <br> Timestamp: "
+            //     //         + (myTime.getMonth() + 1) + "/" + myTime.getDay() + "/" + myTime.getFullYear() + " " + myTime.toTimeString();
+            //     // }
+            // }
+            // catch {
+            //     // this try/catch is not needed past 2/1/2021, all message.data will parse moving forward   
+            // }
+
         }
         const on = function () {
-            ws.send('hey hi ho')
+            // ws.send('hey hi ho')
+            if(ws.readyState === ws.OPEN){
+                ws.send('NukeOn')
+                console.log('sent');
+            }
+            
         }
         const off = function () {
-            ws.send('ha ha ha')
+            // ws.send('ha ha ha')
+            ws.send('NukeOff')
         }
         const enable = function () {
             ws.send('on')

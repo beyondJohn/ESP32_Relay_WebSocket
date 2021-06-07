@@ -22,16 +22,21 @@ WebsocketsClient client;
 void onMessageCallback(WebsocketsMessage message) {
     Serial.print("Got Message: ");
     Serial.println(message.data());
-    if(message.data() == "plugOn"){
+    if(message.data() == "NukeOn"){
       digitalWrite(relay, HIGH);
     }
-    else if(message.data() == "plugOff"){
+    else if(message.data() == "NukeOff"){
       digitalWrite(relay, LOW);
     } 
 }
 
 void connect(){
-    
+  while (WiFi.status() != WL_CONNECTED) {
+      Wifi();  
+      delay(5000);
+  }
+  
+  
   while(!client.connect(websocket_server_host, websocket_server_port, "/")){
     delay(500);
     Serial.print(".");
