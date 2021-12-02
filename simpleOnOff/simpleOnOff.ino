@@ -2,10 +2,13 @@
 #include <ArduinoWebsockets.h>
 #include <HTTPClient.h>
 
-const char* ssid = "Fios-WVBRA_EXT";
-const char* password = "pea4879carve43tony";
+//const char* ssid1 = "Fios-WVBRA";
+//const char* password = "SpectrotelSolutions123";
 //const char* ssid = "Pixel_6944";
 //const char* password = "jphotspot";
+const char* ssid = "Fios-WVBRA_EXT";
+const char* password = "pea4879carve43tony";
+
 const char* websocket_server_host = "192.82.251.138";
 const uint16_t websocket_server_port = 8888;
 const int relay = 26;
@@ -34,6 +37,7 @@ void connect(){
   while (WiFi.status() != WL_CONNECTED) {
       Wifi();  
       delay(5000);
+      Serial.println("WiFi Connected!");
   }
   
   
@@ -60,7 +64,7 @@ void onEventsCallback(WebsocketsEvent event, String data) {
 
 void Wifi(){
   WiFi.begin(ssid, password);
-
+  Serial.print("WiFi connecting");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
@@ -87,14 +91,16 @@ void loop() {
     }
     connect();
    }
-  //Send an HTTP POST request every 10 minutes
+  //Send an HTTP POST request every 5 seconds //10 minutes
   if ((millis() - lastTime) > timerDelay) {
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
-  
+      client.send("still here");
     }
     else {
       Serial.println("WiFi Disconnected");
+      Wifi();
+      connect();
     }
     lastTime = millis();
   }
