@@ -2,12 +2,8 @@
 #include <ArduinoWebsockets.h>
 #include <HTTPClient.h>
 
-//const char* ssid1 = "Fios-WVBRA";
-//const char* password = "SpectrotelSolutions123";
-//const char* ssid = "Pixel_6944";
-//const char* password = "jphotspot";
 const char* ssid = "Fios-WVBRA_EXT";
-const char* password = "pea4879carve43tony";
+const char* password = "myWiFiPassword1!";
 
 const char* websocket_server_host = "192.82.251.138";
 const uint16_t websocket_server_port = 8888;
